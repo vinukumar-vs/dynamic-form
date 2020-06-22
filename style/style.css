@@ -1,0 +1,23 @@
+.flex-container {
+    display: flex;
+    /* flex-flow: nowrap row; */
+  }
+  
+  .col-container {
+    /* flex-flow: column wrap; */
+  }
+  .col-container > div {
+    /* flex-flow: column wrap; */
+    background-color: #C0C0C0;
+    margin: 10px;
+  }
+
+  .row-container {
+    /* flex-flow: row wrap; */
+  }
+
+  .row-container > div {
+    /* flex-flow: row wrap; */
+    background-color: DodgerBlue;
+    margin: 10px;
+  }
