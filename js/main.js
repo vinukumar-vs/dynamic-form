@@ -1,5 +1,9 @@
 const COLUMN = "col";
 const ROW = "row";
+const INPUTS = ["radio", "checkbox", "file", "text"]
+
+var time;
+var layoutArray = [];
 
 function createDiv(parentId, id, data) {
     var parentEle = $('#' + parentId);
@@ -14,7 +18,9 @@ function createDiv(parentId, id, data) {
 }
 
 function createLayout(arr, parentId, type) {
-    // var arr = obj[type];
+    // createLayout timer should reset
+    clearInterval(time);
+     // var arr = obj[type];
     if (arr instanceof Array) {
         arr.forEach(function (obj) {
             createRowOrCol(obj, parentId, type);
@@ -35,6 +41,11 @@ function createRowOrCol(obj, parentId, type) {
     } else if (obj[COLUMN]) {
         nextObj = obj[COLUMN];
         createLayout(nextObj, divId, COLUMN);
+    }else{
+        var div = {};
+        div.id = divId;
+        div.code = obj.code;
+        layoutArray.push(div)
     }
 }
 
@@ -82,13 +93,42 @@ function createRows(obj, parentId) {
     }
 }
 
-function addElement(parentId, elementTag, elementId, html) {
+function createFormField () {
+    var tagInputType = "";
+    clearInterval(time);
+    layoutArray.forEach(function (div) {
+        dynamicFields.forEach(function (obj) {
+            if (obj.code === div.code){
+                INPUTS.forEach(function (inputType){
+                    if (obj.inputType == inputType){
+                        tagInputType = obj.inputType;
+                        obj.inputType  = "input";
+                    }
+                })
+                addElement(div.id, obj.inputType, div.code, tagInputType);
+            }
+        })
+    })
+}
+function addElement(parentId, elementTag, elementId, tagInputType, html) {
     // Adds an element to the document
+    var fieldDiv = document.createElement("p");
     var p = document.getElementById(parentId);
+    p.appendChild(fieldDiv);
     var newElement = document.createElement(elementTag);
+    var newLabelElement = document.createElement("label");
     newElement.setAttribute('id', elementId);
+    if (tagInputType) {
+        newElement.setAttribute('type', tagInputType)
+    }
+    if (elementTag === 'select'){
+        var option = document.createElement("option");
+        newElement.add(option, 0);
+    }
     if (html) newElement.innerHTML = html;
-    p.appendChild(newElement);
+
+    fieldDiv.appendChild(newLabelElement);
+    fieldDiv.appendChild(newElement);
 }
 
 setTimeout(function () {
@@ -100,4 +140,9 @@ setTimeout(function () {
         // createRows(templateLayout, 'dynamicFormDiv');
         createLayout(templateLayout[COLUMN], "dynamicFormDiv", COLUMN);
     }
+
+    time = setInterval(function(){
+        createFormField("appicon", "appicon")
+    }, 2000);    
 }, 0)
+
