@@ -7,11 +7,16 @@ var layoutArray = [];
 
 function createDiv(parentId, id, data) {
     var parentEle = $('#' + parentId);
-    var divStr = '<div id="' + id + '">' + data.name + '</div>';
+    if (data.code){
+        var divStr = '<p id="' + id + '"></p>';
+    }else{
+        var divStr = '<div id="' + id + '">' + data.name + '</div>';
+    }
     parentEle.append(divStr);
     var divEle = $('#' + id);
     var style = {
-        width: data.style && data.style.width ? '"' + data.style.width + '%"' : "100%"
+        width: data.style && data.style.width ? '"' + data.style.width + '%"' : "100%",
+        "flex-grow": data.style && data.style.width ? data.style.width : "10"
     }
     divEle.css(style);
     if (data && data.class) divEle.addClass(data.class);
@@ -105,37 +110,48 @@ function createFormField () {
                         obj.inputType  = "input";
                     }
                 })
-                addElement(div.id, obj.inputType, div.code, tagInputType);
+                addElement(div.id, obj, div.code, tagInputType);
             }
         })
     })
 }
-function addElement(parentId, elementTag, elementId, tagInputType, html) {
+function addElement(parentId, obj, elementId, tagInputType, html) {
     // Adds an element to the document
-    var fieldDiv = document.createElement("p");
+    //var fieldDiv = document.createElement("p");
     var p = document.getElementById(parentId);
-    p.appendChild(fieldDiv);
-    var newElement = document.createElement(elementTag);
+    //p.appendChild(fieldDiv);
+    var newElement = document.createElement(obj.inputType);
     var newLabelElement = document.createElement("label");
+    newLabelElement.innerHTML = obj.name;
     newElement.setAttribute('id', elementId);
     if (tagInputType) {
         newElement.setAttribute('type', tagInputType)
     }
-    if (elementTag === 'select'){
-        var option = document.createElement("option");
-        newElement.add(option, 0);
+    if (obj.inputType === 'select'){
+        var defaultOption = document.createElement("option");
+        defaultOption.text = "Select " + obj.name;
+        newElement.add(defaultOption);
+        if(obj.range)
+        {
+            obj.range.forEach(function(range){
+                var option = document.createElement("option");
+                option.text = range.name;
+                option.value = range.code;
+                newElement.add(option);
+            })
+        }        
     }
     if (html) newElement.innerHTML = html;
 
-    fieldDiv.appendChild(newLabelElement);
-    fieldDiv.appendChild(newElement);
+    p.appendChild(newLabelElement);
+    p.appendChild(newElement);
 }
 
 setTimeout(function () {
 
     if (Object.keys(templateLayout)[0] == ROW) {
         // createColumns(templateLayout, 'dynamicFormDiv');
-        createLayout(templateLayout[row], "dynamicFormDiv", ROW);
+        createLayout(templateLayout[ROW], "dynamicFormDiv", ROW);
     } else {
         // createRows(templateLayout, 'dynamicFormDiv');
         createLayout(templateLayout[COLUMN], "dynamicFormDiv", COLUMN);
@@ -143,6 +159,6 @@ setTimeout(function () {
 
     time = setInterval(function(){
         createFormField("appicon", "appicon")
-    }, 2000);    
+    }, 200);    
 }, 0)
 

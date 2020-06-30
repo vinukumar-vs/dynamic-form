@@ -9,7 +9,8 @@
   .col-container > div {
     /* flex-flow: column wrap; */
     background-color: #C0C0C0;
-    margin: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
   }
 
   .row-container {
@@ -19,5 +20,27 @@
   .row-container > div {
     /* flex-flow: row wrap; */
     background-color: DodgerBlue;
-    margin: 10px;
   }
+
+  p {
+    padding: 10px;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+  
+  input[type=text], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+  }
+  
+  label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+  }
+
+  
