@@ -4,43 +4,22 @@
   }
   
   .col-container {
-    /* flex-flow: column wrap; */
+    display: flex;
+    flex-flow: column wrap;
   }
   .col-container > div {
-    /* flex-flow: column wrap; */
+    flex-flow: column wrap;
     background-color: #C0C0C0;
-    margin-left: 5px;
-    margin-right: 5px;
+    margin: 10px;
   }
 
   .row-container {
-    /* flex-flow: row wrap; */
+    display: flex;
+    flex-flow: row wrap;
   }
 
   .row-container > div {
-    /* flex-flow: row wrap; */
+    flex-flow: row wrap;
     background-color: DodgerBlue;
+    margin: 10px;
   }
-
-  p {
-    padding: 10px;
-  }
-
-  * {
-    box-sizing: border-box;
-  }
-  
-  input[type=text], select, textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    resize: vertical;
-  }
-  
-  label {
-    padding: 12px 12px 12px 0;
-    display: inline-block;
-  }
-
-  
