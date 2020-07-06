@@ -24,7 +24,8 @@ var dfElements = {
         }
     },
     updateForm: function(target){
-        dependancy.updateForm(target)
+        var field = dependancy.getTargetField(target);
+        dependancy.updateForm(field)
     },
     getSortedOptions: function(options){
         options = options.sort(function(a, b) {
@@ -72,9 +73,16 @@ var dfElements = {
             }
         }
     },
+    setSelect: function(pID, pSelectedValue)
+    {
+        $('#df_'+pID + ' option:selected').removeAttr('selected');
+        $('#df_'+pID + ' option[value='+pSelectedValue+']').attr('selected', true);   
+    },
     setMetadata: function(code, data){
         var element = $('#df_' + code);
-        if (element.length){
+        if (element.length &&  Array.isArray(data)){
+            dfElements.setSelect(code, data[0]);
+        }else{
             $('#df_' + code).val(data);
         }
     }

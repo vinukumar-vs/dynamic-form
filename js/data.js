@@ -45159,6 +45159,8 @@ var metadata = {
   "audience": [
     "Learner"
   ],
+  "board": "State (Uttar Pradesh)",
+  "medium": ["Urdu"],
   "visibility": "Default",
   "mediaType": "content",
   "osId": "org.ekstep.quiz.app",

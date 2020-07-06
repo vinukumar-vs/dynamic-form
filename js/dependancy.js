@@ -4,26 +4,19 @@ var dependancy = {
     init: function(fields) {
         this.fields = fields;
         const DROPDOWN_INPUT_TYPES = ['select', 'multiSelect'];
-        fields.forEach(function(field) {
-            if (DROPDOWN_INPUT_TYPES.includes(field.inputType)) {
-                if (field.depends && field.depends.length) {
-                    dependancy.getAssociations(metadata[field.code], field.range, function(associations) {
-                        console.log(associations)
-                    });
-                }
-            }
-        });
     },
-    updateForm: function(target) {
+    getTargetField: function(target){
         var object = [];
         this.fields.forEach(function(field){
             if (field.code === target.getAttribute("code")){
                 object = field;
             }               
         })
+        return object;
+    },
+    updateForm: function(object) {
         if (object && object.range) {
             dependancy.getAssociations($('#df_' + object.code).val(), object.range, function(associations) {
-                console.log(associations)
                 var data = dependancy.getFormValues();
                 dependancy.getParentAssociations(object, associations, data, function(commonAssociations){
                     dependancy.applyDependencyRules(object, commonAssociations, true);
@@ -100,16 +93,10 @@ var dependancy = {
         });
         callback && callback(associations);
     },
-    resetSelectedField: function(id) {
-        setTimeout(function() {
-            $('#df_' + id).val("").attr("selected","selected");
-        }, 0)
-    },
-    applyDependencyRules: function(field, associations, resetSelected, target) {
+    applyDependencyRules: function(field, associations) {
         var dependedValues, groupdFields;
         if (field.depends && field.depends.length) {
             field.depends.forEach(function(id) {
-                resetSelected && dependancy.resetSelectedField(id);
                 dependedValues = [];
                 associations.forEach(function(association){
                     if (id == association.category){
@@ -125,13 +112,6 @@ var dependancy = {
                 })
                 if (dependedValues.length) dfElements.setOptions(obj, dependedValues);
             });
-        }
-    },
-    updateDropDownList: function(fieldCode, values) {
-        if (values.length) {
-            $scope.categoryList[fieldCode] = _.unionBy(values, 'name');
-        } else {
-            $scope.mapMasterCategoryList($scope.fields, fieldCode);
         }
     },
     mapObject: function(destination, source, callback) {

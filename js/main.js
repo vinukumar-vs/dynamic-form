@@ -83,10 +83,6 @@ function createFormField () {
 function setMetadata (callback) {
     $.each(metadata, function( code, data ){
         dfElements.setMetadata(code, data)
-        var select = $('#df_' + code);
-        select.click = function() {
-            console.log("test")
-        } 
     });
     callback();
 }
