@@ -9,7 +9,11 @@ function createDiv(parentId, id, data) {
     var parentEle = $('#' + parentId);
     var eleId = data.name ? 'cont_' + data.name : id;
     console.log( "eleId", eleId)
-    var divStr = '<div id="' + id + '" name="' + data.code + '">' + data.name + '</div>';
+    if(data.code){
+        var divStr = '<div id="' + id + '" name="' + data.code + '">' + data.name + '</div>';
+    }else{
+        var divStr = '<div id="' + id + '">' + data.name + '</div>';
+    }
     parentEle.append(divStr);
     var divEle = $('#' + id);
     var style = {
@@ -65,15 +69,24 @@ function createFormField () {
         dfElements.createElement(obj);
         if (obj.inputType == SELECT || obj.inputType == MULTISELECT) {
             formData.forEach(function (field) {
-                if (obj.code === field.code) dfElements.setOptions(obj.code, field.terms);
+                if (obj.code === field.code) dfElements.setOptions(obj, field.terms);
             });
         }
     });
-    setMetadata();
+    setMetadata(function(){
+        dependancy.mapObject(dynamicFields, formData, function(fields){
+            dependancy.init(fields)
+        });
+    });
 }
 
-function setMetadata () {
+function setMetadata (callback) {
     $.each(metadata, function( code, data ){
         dfElements.setMetadata(code, data)
+        var select = $('#df_' + code);
+        select.click = function() {
+            console.log("test")
+        } 
     });
+    callback();
 }

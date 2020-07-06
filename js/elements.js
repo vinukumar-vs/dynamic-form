@@ -18,23 +18,58 @@ var dfElements = {
         var ele = $('[name ="'+ obj.code+'"]');
         if(ele) {
             var parentEle = ele[0];
-            var eleStr = '<span>'+obj.name+'</span><' + tag + ' id="df_' + obj.code + '"></' + tag + '>' ;
+            var eleStr = '<span>'+obj.name+'</span><' + tag + ' id="df_' + obj.code + '" onChange="dfElements.updateForm(this)" code="'+obj.code +'" data="'+obj.name+'"></' + tag + '>' ;
             $(parentEle).html(eleStr);
             if(type) $('#df_'+obj.code).attr('type', type);
         }
     },
-    setOptions: function(code, optionData){
-        var select = $('#df_' + code);
-        if (select.length){
-            if(select.prop) {
-            var options = select.prop('options');
+    updateForm: function(target){
+        dependancy.updateForm(target)
+    },
+    getSortedOptions: function(options){
+        options = options.sort(function(a, b) {
+            var optionA = a.name.toUpperCase(); 
+            var optionB = b.name.toUpperCase();
+            if (optionA < optionB) {
+                return -1;
             }
-            else {
-            var options = select.attr('options');
+            if (optionA > optionB) {
+                return 1;
             }
-            $.each(optionData, function(index, option) {
-                options[index] = new Option(option.name, option.code);
-            });
+            return 0;
+        });
+        return options;
+    },
+    getUniqOptions: function(options){
+        let uniqueOptions = [];
+        let itemsFound = {};
+        for(let val of options) {
+            if(itemsFound[val.name]){
+                continue;
+            }
+            uniqueOptions.push(val);
+            itemsFound[val.name] = true;
+        }
+        return uniqueOptions;
+    },
+    setOptions: function(obj, optionData){
+        optionData = this.getUniqOptions(optionData);
+        optionData = this.getSortedOptions(optionData);
+        if (obj.inputType == "select" || obj.inputType =="multiselect"){
+            var select = $('#df_' + obj.code);
+            select.empty();
+            if (select.length){
+                if(select.prop) {
+                    var options = select.prop('options');
+                }
+                else {
+                    var options = select.attr('options');
+                }
+                options[0] = new Option(obj.placeholder, "");
+                $.each(optionData, function(index, option) {
+                    options[index + 1] = new Option(option.name, option.name);
+                });
+            }
         }
     },
     setMetadata: function(code, data){
