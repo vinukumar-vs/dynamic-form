@@ -87,3 +87,4 @@ var dfElements = {
         }
     }
 }
+window.dfElements = dfElements;

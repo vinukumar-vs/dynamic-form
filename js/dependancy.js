@@ -148,3 +148,4 @@ var dependancy = {
         return callback(data)
     }
 }
+window.dependancy = dependancy;

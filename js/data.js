@@ -45139,7 +45139,7 @@ var formData =  [
       "status": "Live"
   }
 ]
-
+window.formData = formData;
 var metadata = {
   "ownershipType": [
     "createdBy"
@@ -45176,3 +45176,4 @@ var metadata = {
   "resourceType": "Learn",
   "status": "Draft"
 }
+window.metadata = metadata;
