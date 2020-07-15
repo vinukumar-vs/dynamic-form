@@ -24,8 +24,8 @@ var dfElements = {
         }
     },
     updateForm: function(target){
-        var field = dependancy.getTargetField(target);
-        dependancy.updateForm(field)
+        var field = dependency.getTargetField(target);
+        dependency.updateForm(field)
     },
     getSortedOptions: function(options){
         options = options.sort(function(a, b) {
@@ -87,3 +87,4 @@ var dfElements = {
         }
     }
 }
+window.dfElements = dfElements;

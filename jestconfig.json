@@ -1,0 +1,16 @@
+{
+    "collectCoverage": true,
+    "coverageReporters": ["lcov"],
+    "moduleDirectories": [
+        "node_modules"
+      ],
+      "testPathIgnorePatterns": [
+        "/node_modules/"
+      ],
+      "testMatch": [
+        "**/?(main.)(spec).js"
+      ],
+      "moduleFileExtensions": [
+        "js"
+      ]
+}
