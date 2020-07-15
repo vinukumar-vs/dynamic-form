@@ -310,7 +310,7 @@
         "/node_modules/"
       ],
       "testMatch": [
-        "**/?(*.)(spec).js"
+        "**/?(main.)(spec).js"
       ],
       "moduleFileExtensions": [
         "js"

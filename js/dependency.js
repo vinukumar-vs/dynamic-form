@@ -1,5 +1,5 @@
 
-var dependancy = {
+var dependency = {
     fields: undefined,
     init: function(fields) {
         this.fields = fields;
@@ -16,10 +16,10 @@ var dependancy = {
     },
     updateForm: function(object) {
         if (object && object.range) {
-            dependancy.getAssociations($('#df_' + object.code).val(), object.range, function(associations) {
-                var data = dependancy.getFormValues();
-                dependancy.getParentAssociations(object, associations, data, function(commonAssociations){
-                    dependancy.applyDependencyRules(object, commonAssociations, true);
+            dependency.getAssociations($('#df_' + object.code).val(), object.range, function(associations) {
+                var data = dependency.getFormValues();
+                dependency.getParentAssociations(object, associations, data, function(commonAssociations){
+                    dependency.applyDependencyRules(object, commonAssociations, true);
                 })
             });
         }
@@ -34,18 +34,18 @@ var dependancy = {
     getParentAssociations: function(field, associations, formData, callback) {
         if (field.parent && field.parent.length){
             field.parent.forEach(function(val) {
-                dependancy.fields.forEach(function(field) {
+                dependency.fields.forEach(function(field) {
                     if (field.code === val){
                         field.range.forEach(function(range) {
                             if(Array.isArray(formData[val]) && formData[val].length > 0){
                                 formData[val].forEach(function(metadata) {
                                     if (range.name === metadata){
-                                        associations = dependancy.getCommonAssociations(range.associations, associations);
+                                        associations = dependency.getCommonAssociations(range.associations, associations);
                                     }
                                 });
                             }else{
                                 if (range.name === formData[val]){
-                                    associations = dependancy.getCommonAssociations(range.associations, associations);
+                                    associations = dependency.getCommonAssociations(range.associations, associations);
                                 }
                             }
                         });
@@ -104,7 +104,7 @@ var dependancy = {
                     }
                 })
                 var obj;
-                dependancy.fields.forEach(function(field){
+                dependency.fields.forEach(function(field){
                     if (id == field.code){
                         obj = field;
                         return;
@@ -148,4 +148,4 @@ var dependancy = {
         return callback(data)
     }
 }
-window.dependancy = dependancy;
+window.dependency = dependency;

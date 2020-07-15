@@ -1,6 +1,5 @@
 .flex-container {
     display: flex;
-    /* flex-flow: nowrap row; */
   }
   
   .col-container {
