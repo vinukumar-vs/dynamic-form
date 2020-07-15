@@ -1,102 +1,66 @@
 var templateLayout = {
     "col": [
-          {
-            "style": {
-                "width": 20 //in Percentage
-            },
-            "name": "",
-            "col": [
-                {
-                  "style": {
-                      "width": 20 //in Percentage
-                  },
-                  "name": "Section-1.1",
-                  "col": [{
-                          name: "App Icon",
-                          code: "appIcon",
-                          style: {
-                              width: 30
-                          }
-                      }
-                  ]
-              }
-            ]
-        },
         {
             "style": {
-                "width": 80 //in Percentage
+                "width": 100 //in Percentage
             },
             "name": "",
-            "col": [
+            "row": [
                 {
                   "style": {
-                      "width": 50 //in Percentage
+                      "width": 100 //in Percentage
                   },
-                  "name": "Section-2.1",
+                  "name": "",
                   "col": [{
-                          name: "Title",
+                          name: "Name",
                           code: "name",
                           style: {
                               width: 30
                           }
-                      },
-                      {
-                          name: "Description",
-                          code: "description",
-                          style: {
-                              width: 100
-                          }
                       }
                   ]
-              },
-              {
-                "style": {
-                    "width": 50 //in Percentage
                 },
-                "name": "Section-2.2",
-                "row": [
-                  {
-                    name: "Board",
-                    code: "board",
-                    style: {
-                        width: 30
-                    }
-                },
-                {
-                  name: "Medium",
-                  code: "medium",
-                  style: {
-                      width: 50
-                  }
-                },
-                {
-                  name: "Class",
-                  code: "gradeLevel",
-                  style: {
-                      width: 50
-                  }
-                },
-                {
-                  name: "Subject",
-                  code: "subject",
-                  style: {
-                      width: 50
-                  }
-                }
-              ]
-            },
                 {
                     "style": {
                         "width": 50 //in Percentage
                     },
-                    "name": "Section 2.3",
+                    "name": "",
                     "col": [{
-                        name: "License",
-                        code: "license",
-                        style: {
-                            width: 50
+                            name: "Board",
+                            code: "board",
+                            style: {
+                                width: 10
+                            }
+                        },
+                        {
+                            name: "Class",
+                            code: "gradeLevel",
+                            style: {
+                                width: 20
+                            }
                         }
-                    }]
+                    ]
+                },
+                {
+                    "style": {
+                        "width": 100 //in Percentage
+                    },
+                    "name": "",
+                    "col": [{
+                            name: "Medium",
+                            code: "medium",
+                            style: {
+                                width: 30
+                            }
+                        },
+                        {
+                            name: "Subject",
+                            code: "subject",
+                            style: {
+                                width: 50
+                            }
+                        }
+                    ]
                 }
             ]
         }

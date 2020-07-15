@@ -1,21 +1,52 @@
 var templateLayout = {
     "col": [
-          {
+        {
             "style": {
-                "width": 20 //in Percentage
+                "width": 80 //in Percentage
             },
             "name": "",
             "col": [
                 {
                   "style": {
-                      "width": 20 //in Percentage
+                      "width": 50 //in Percentage
                   },
-                  "name": "Section-1.1",
+                  "name": "",
                   "col": [{
-                          name: "App Icon",
-                          code: "appIcon",
+                          name: "Name",
+                          code: "name",
                           style: {
                               width: 30
+                          }
+                      }
+                  ]
+              }
+            ]
+        }
+    ],
+    "col": [
+        {
+            "style": {
+                "width": 80 //in Percentage
+            },
+            "name": "",
+            "col": [
+                {
+                  "style": {
+                      "width": 50 //in Percentage
+                  },
+                  "name": "",
+                  "col": [{
+                          name: "Board",
+                          code: "board",
+                          style: {
+                              width: 30
+                          }
+                      },
+                      {
+                          name: "Class",
+                          code: "gradeLevel",
+                          style: {
+                              width: 100
                           }
                       }
                   ]
@@ -32,72 +63,23 @@ var templateLayout = {
                   "style": {
                       "width": 50 //in Percentage
                   },
-                  "name": "Section-2.1",
+                  "name": "",
                   "col": [{
-                          name: "Title",
-                          code: "name",
+                          name: "Medium",
+                          code: "medium",
                           style: {
                               width: 30
                           }
                       },
                       {
-                          name: "Description",
-                          code: "description",
+                          name: "Subject",
+                          code: "subject",
                           style: {
                               width: 100
                           }
                       }
                   ]
-              },
-              {
-                "style": {
-                    "width": 50 //in Percentage
-                },
-                "name": "Section-2.2",
-                "row": [
-                  {
-                    name: "Board",
-                    code: "board",
-                    style: {
-                        width: 30
-                    }
-                },
-                {
-                  name: "Medium",
-                  code: "medium",
-                  style: {
-                      width: 50
-                  }
-                },
-                {
-                  name: "Class",
-                  code: "gradeLevel",
-                  style: {
-                      width: 50
-                  }
-                },
-                {
-                  name: "Subject",
-                  code: "subject",
-                  style: {
-                      width: 50
-                  }
-                }
-              ]
-            },
-                {
-                    "style": {
-                        "width": 50 //in Percentage
-                    },
-                    "name": "Section 2.3",
-                    "col": [{
-                        name: "License",
-                        code: "license",
-                        style: {
-                            width: 50
-                        }
-                    }]
-                }
+              }
             ]
         }
     ]

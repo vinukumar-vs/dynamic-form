@@ -28,7 +28,7 @@
         init = function (){
             var templateLayout = options.config.templateLayout;
             if (Object.keys(templateLayout)[0] == ROW) {
-                createLayout(templateLayout[row], "dynamicFormDiv", ROW);
+                createLayout(templateLayout[ROW], "dynamicFormDiv", ROW);
             } else {
                 createLayout(templateLayout[COLUMN], "dynamicFormDiv", COLUMN);
             }
@@ -48,15 +48,14 @@
             var eleId = data.name ? 'cont_' + data.name : id;
             console.log( "eleId", eleId)
             if(data.code){
-                var divStr = '<div id="' + id + '" name="' + data.code + '">' + data.name + '</div>';
+                var divStr = '<div id="' + id + '" name="' + data.code + '"><p>' + data.name + '</p></div>';
             }else{
-                var divStr = '<div id="' + id + '">' + data.name + '</div>';
+                var divStr = '<div id="' + id + '"><p>' + data.name + '</p></div>';
             }
             parentEle.append(divStr);
             var divEle = $('#' + id);
             var style = {
-                width: data.style && data.style.width ? '"' + data.style.width + '%"' : "100%",
-                "flex-grow": data.style && data.style.width ? data.style.width : "10"
+                "flex-grow": data.style && data.style.width ? data.style.width/100 : "1"
             }
             divEle.css(style);
             if (data && data.class) divEle.addClass(data.class);
@@ -145,10 +144,11 @@
 }).call(this);
 //# sourceURL=SBdynamicForm.js
 
-// setTimeout(function () {
-//     jQuery('#dynamicFormDiv').SBdynamicForm({
-//         id: "dynamicFormDiv",
-//         config: formConfig,
-//         data: metadata
-//     });
-// }, 0)
+setTimeout(function () {
+    console.log("Loading form with default data");
+    jQuery('#dynamicFormDiv').SBdynamicForm({
+        id: "dynamicFormDiv",
+        config: formConfig,
+        data: metadata
+    });    
+}, 0)
