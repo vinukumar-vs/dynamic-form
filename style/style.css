@@ -6,8 +6,12 @@
     display: flex;
     flex-flow: column wrap;
   }
+  .col-container p{
+    font-size: 1.1em;
+    font-weight: bold;
+  }
+
   .col-container > div {
-    flex-flow: column wrap;
     background-color: #C0C0C0;
     margin: 10px;
   }
@@ -18,7 +22,6 @@
   }
 
   .row-container > div {
-    flex-flow: row wrap;
-    background-color: DodgerBlue;
+    background-color: #C0C0C0;
     margin: 10px;
   }

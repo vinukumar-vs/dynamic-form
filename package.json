@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --config=jestconfig.json",
+    "server": "http-server . -p 8000",
     "build": "webpack"
   },
   "repository": {
@@ -19,6 +20,7 @@
   "homepage": "https://github.com/gouravmore/dynamic-form#readme",
   "devDependencies": {
     "css-loader": "^3.6.0",
+    "http-server": "^0.12.3",
     "jest": "^26.1.0",
     "style-loader": "^1.2.1",
     "webpack": "^4.43.0",
