@@ -1,4 +1,3 @@
-
 var dependency = {
     fields: undefined,
     init: function(fields) {
@@ -25,9 +24,11 @@ var dependency = {
         }
     },
     getFormValues: function(){
-        var updatedFormData = [];
+        var updatedFormData = new Object();
         this.fields.forEach(function(field){
             updatedFormData[field.code] = $('#df_' + field.code).val();
+            var count = Array.isArray(updatedFormData[field.code]) ? updatedFormData[field.code].length : (updatedFormData[field.code] ? 1 : 0) ;
+            $("#selectedCount_" + field.code).text(count);
         });
         return updatedFormData;
     },

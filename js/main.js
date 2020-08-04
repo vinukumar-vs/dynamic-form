@@ -17,8 +17,16 @@
             id: 'dynamicFormDiv',
             config: config,
             data: metadata,
+            showSelectedCount: false,
             addHtml: function(node) {
                 return false;
+            },
+            submitId: "submit",
+            getFormData: function(){
+                return false;
+            },
+            error: function(cb){
+                cb()
             }
         };
         $.extend(config, options);
@@ -27,12 +35,22 @@
         */
         init = function (){
             var templateLayout = options.config.templateLayout;
+            if (Object.keys(templateLayout).length === 0) options.error(true);
             if (Object.keys(templateLayout)[0] == ROW) {
                 createLayout(templateLayout[ROW], "dynamicFormDiv", ROW);
             } else {
                 createLayout(templateLayout[COLUMN], "dynamicFormDiv", COLUMN);
             }
+
+            $("#" + config.submitId).click(function() {
+                var data = dependency.getFormValues();
+                console.log(data);
+                options.getFormData(data)
+            });
         };
+        validate = function (){
+            return true; 
+        }
         /**
         * @description                  - When createDiv method is called
         *
@@ -114,12 +132,12 @@
         * @description              - to create form fields from the configuration
         */
         createFormField = function (){
+            var dynamicFields = options.config.fields;
+            var formData = options.config.formData;
             dynamicFields.forEach(function (obj) {
-                dfElements.createElement(obj);
+                dfElements.createElement(obj, config.showSelectedCount);
                 if (obj.inputType == SELECT || obj.inputType == MULTISELECT) {
-                    formData.forEach(function (field) {
-                        if (obj.code === field.code) dfElements.setOptions(obj, field.terms);
-                    });
+                    dfElements.setOptions(obj, obj.range);
                 }
             });
             setMetadata(function(){
@@ -134,12 +152,13 @@
         * @param {callback} callback      - callback method which will call after the setmedata exicution
         */
         setMetadata = function (callback){
-            $.each(metadata, function( code, data ){
+            $.each(config.data, function( code, data ){
                 dfElements.setMetadata(code, data)
             });
             callback();
         };
         return init();
+        //export method
     };
 }).call(this);
 //# sourceURL=SBdynamicForm.js
