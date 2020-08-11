@@ -43,7 +43,7 @@
   
         // Change a private property
         _sbDynamicForm.init = function(config){
-            Defaults.config = config;
+            Defaults = $.extend(Defaults, config);
             createTemplate(Defaults.config.templateLayout);
             return Defaults.config;
         };
@@ -151,10 +151,10 @@
         * @description              - to create form fields from the configuration
         */
         createFormField = function (){
-            var dynamicFields = options.config.fields;
-            var formData = options.config.formData;
+            var dynamicFields = Defaults.config.fields;
+            var formData = Defaults.config.formData;
             dynamicFields.forEach(function (obj) {
-                dfElements.createElement(obj, config.showSelectedCount);
+                dfElements.createElement(obj, Defaults.showSelectedCount);
                 if (obj.inputType == SELECT || obj.inputType == MULTISELECT) {
                     dfElements.setOptions(obj, obj.range);
                 }
@@ -172,7 +172,7 @@
         * @param {callback} callback      - callback method which will call after the setmedata exicution
         */
         setMetadata = function (callback){
-            $.each(config.data, function( code, data ){
+            $.each(Defaults.data, function( code, data ){
                 dfElements.setMetadata(code, data)
             });
             callback();
