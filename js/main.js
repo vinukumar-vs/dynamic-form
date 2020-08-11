@@ -1,21 +1,31 @@
-(function() {
-    $.fn.SBdynamicForm = function(options) {
+(function(window){
+    // You can enable the strict mode commenting the following line  
+    'use strict';
+  
+    // This function will contain all our code
+    function SBdynamicForm(){
+        var _sbDynamicForm = {};
+
+        // Constants
         const COLUMN = "col";
         const ROW = "row";
         const SELECT = "select";
         const MULTISELECT = "multiselect";
+
         var createEleInterval,
-            init,
-            config,
-            createDiv,
-            startInterval,
-            createLayout,
-            createRowOrCol,
-            createFormField,
-            setMetadata;
-        config = {
+        init,
+        config,
+        createDiv,
+        startInterval,
+        createLayout,
+        createRowOrCol,
+        createFormField,
+        setMetadata;
+
+        // This variable will be inaccessible to the user, only can be visible in the scope of your library.
+        var Defaults = {
             id: 'dynamicFormDiv',
-            config: config,
+            config: formConfig,
             data: metadata,
             showSelectedCount: false,
             addHtml: function(node) {
@@ -29,28 +39,33 @@
                 cb()
             }
         };
-        $.extend(config, options);
-        /**
-        * @description    - When the SBdynamicForm lib is initialized
-        */
-        init = function (){
-            var templateLayout = options.config.templateLayout;
+   
+  
+        // Change a private property
+        _sbDynamicForm.init = function(config){
+            Defaults.config = config;
+            createTemplate(Defaults.config.templateLayout);
+            return Defaults.config;
+        };
+
+        var createTemplate = function (templateLayout){
             if (Object.keys(templateLayout).length === 0) options.error(true);
             if (Object.keys(templateLayout)[0] == ROW) {
                 createLayout(templateLayout[ROW], "dynamicFormDiv", ROW);
             } else {
                 createLayout(templateLayout[COLUMN], "dynamicFormDiv", COLUMN);
             }
-
-            $("#" + config.submitId).click(function() {
-                var data = dependency.getFormValues();
-                console.log(data);
-                options.getFormData(data)
-            });
         };
-        validate = function (){
-            return true; 
+
+        _sbDynamicForm.getSBFormData = function(){
+            var data = dependency.getFormValues();
+            return data;
         }
+
+        _sbDynamicForm.validate = function(){
+            return true;
+        }
+
         /**
         * @description                  - When createDiv method is called
         *
@@ -78,6 +93,7 @@
             divEle.css(style);
             if (data && data.class) divEle.addClass(data.class);
         };
+
         /**
         * @description              - start interval time to create dynamic fields
         */
@@ -87,6 +103,7 @@
                 createFormField();
             }, 200);
         };
+
         /**
         * @description                   - When create layout method called
         *
@@ -105,6 +122,7 @@
                 createRowOrCol(arr, parentId, type);
             }
         };
+
         /**
         * @description                    - To create row and colomn
         *
@@ -128,6 +146,7 @@
                 createLayout(nextObj, divId, COLUMN);
             }
         };
+
         /**
         * @description              - to create form fields from the configuration
         */
@@ -146,6 +165,7 @@
                 });
             });
         };
+
         /**
         * @description                    - Set metadata to the created form element
         *
@@ -157,17 +177,15 @@
             });
             callback();
         };
-        return init();
-        //export method
-    };
-}).call(this);
-//# sourceURL=SBdynamicForm.js
-
-setTimeout(function () {
-    console.log("Loading form with default data");
-    jQuery('#dynamicFormDiv').SBdynamicForm({
-        id: "dynamicFormDiv",
-        config: formConfig,
-        data: metadata
-    });    
-}, 0)
+  
+        return _sbDynamicForm;
+    }
+  
+    // We need that our library is globally accesible, then we save in the window
+    if(typeof(window.SBdynamicForm) === 'undefined'){
+        window.SBdynamicForm = SBdynamicForm();
+    }
+})(window); // We send the window variable withing our function
+  
+// Now see the content of your library
+console.log(SBdynamicForm);
