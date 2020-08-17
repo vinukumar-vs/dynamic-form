@@ -25,8 +25,8 @@
         // This variable will be inaccessible to the user, only can be visible in the scope of your library.
         var Defaults = {
             id: 'dynamicFormDiv',
-            config: formConfig,
-            data: metadata,
+            config: {},
+            data: {},
             showSelectedCount: false,
             addHtml: function(node) {
                 return false;
@@ -35,6 +35,11 @@
             getFormData: function(){
                 return false;
             },
+            events: [],
+            addEvents: function(events){
+                var events = (events) ? events : [];
+            },
+            directives: [],
             error: function(cb){
                 cb()
             }
@@ -48,8 +53,26 @@
             return Defaults.config;
         };
 
+        _sbDynamicForm.initialized = function(){
+            dispatchEvents("form-init")
+            Defaults.directives.forEach(function(directive){
+                dfElements.updateElement(directive, Defaults.config)
+            });
+            console.log("initialized")
+        }
+
+        var dispatchEvents = function(eventName){
+            Defaults.events.forEach(function(event){
+                if(event.code === eventName){
+                    setTimeout(function(){
+                        ecEditor.dispatchEvent(event.event)
+                    }, 1000)
+                }
+            });
+        }
+
         var createTemplate = function (templateLayout){
-            if (Object.keys(templateLayout).length === 0) options.error(true);
+            if (Object.keys(templateLayout).length === 0) dispatchEvents("form-error")
             if (Object.keys(templateLayout)[0] == ROW) {
                 createLayout(templateLayout[ROW], "dynamicFormDiv", ROW);
             } else {
@@ -189,3 +212,5 @@
   
 // Now see the content of your library
 console.log(SBdynamicForm);
+
+//# sourceURL=SBdynamicForm.js

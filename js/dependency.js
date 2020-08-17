@@ -3,6 +3,7 @@ var dependency = {
     init: function(fields) {
         this.fields = fields;
         const DROPDOWN_INPUT_TYPES = ['select', 'multiSelect'];
+        SBdynamicForm.initialized();
     },
     getTargetField: function(target){
         var object = [];

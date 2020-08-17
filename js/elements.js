@@ -1,4 +1,3 @@
-
 var dfElements = {
     create: function() {
 
@@ -13,8 +12,35 @@ var dfElements = {
             case "select": dfElements.addElement(obj, 'select', undefined, showSelectedCount); break;
             case "multiselect": dfElements.addElement(obj, 'select', undefined, showSelectedCount); break;
             case "label": dfElements.addElement(obj, 'label'); break;
-            default: console.log("no element added");
+            default: (obj.renderingHints.html) ? dfElements.addHtmlElement(obj) : console.log("no element added");
         }
+    },
+    addHtmlElement: function(obj){
+        // var ele = $('[name ="'+ obj.code+'"]');
+        // if(ele) {
+        //     var parentEle = ele[0];
+        //     $(parentEle).html(obj.renderingHints.html);
+        // }
+    },
+    updateElement: function(directive, configObj){
+        var ele = $('[name ="'+ directive.code+'"]');
+        var directiveElement =  $("#" + directive.id);
+        var directiveObj = {};
+        configObj.fields.forEach(function(obj){
+            if(obj.code === directive.code)
+                directiveObj = obj
+        })
+        var style = {
+            "display": "block"
+        }
+        directiveElement.css(style);
+        ecEditor.addEventListener(directive.event, function (event, data) {
+            console.log("lib:editor:form:change", data)
+        });
+        if(ele) {
+            ele.append(document.getElementById(directive.id))
+        }
+        
     },
     addElement: function(obj, tag, type, showSelectedCount) {
         var ele = $('[name ="'+ obj.code+'"]');
